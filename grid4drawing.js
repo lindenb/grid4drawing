@@ -1,4 +1,5 @@
 var theImage = null;
+var doRotate=false;
 
 function message(color,str) {
  	var E1 = document.getElementById("message");
@@ -14,10 +15,11 @@ function drawImage() {
     canvas.height = window.innerHeight;
     
     var ctx = canvas.getContext('2d');
-	if(theImage!=null)
+	if(theImage!= null)
 		{
 		ctx.save();
-		if(document.getElementById('rotate').checked)
+
+		if(doRotate)
 			{
 			ctx.rotate(Math.PI / 2.0);
 		 	var factor=Math.min(canvas.width/theImage.height,canvas.height/theImage.width);
@@ -82,7 +84,8 @@ window.addEventListener('load', function() {
 		drawImage();
 		});
 	E1 = document.getElementById("rotate");
-	E1.addEventListener("change",function() {
+	E1.addEventListener("click",function() {
+		doRotate = !doRotate;
 		drawImage();
 		});
 	urlChanged();
