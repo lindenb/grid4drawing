@@ -1,6 +1,8 @@
 var theImage = null;
 var doRotate=false;
 var doScale=1.0;
+var lastMouse = null;
+var gTranslate = {"x":0,"y":0};
 
 function message(color,str) {
  	var E1 = document.getElementById("message");
@@ -19,7 +21,7 @@ function drawImage() {
 	if(theImage!= null)
 		{
 		ctx.save();
-
+		ctx.translate(gTranslate.x,gTranslate.y);
 		if(doRotate)
 			{
 			ctx.rotate(Math.PI / 2.0);
@@ -97,6 +99,34 @@ window.addEventListener('load', function() {
 		doScale = doScale*0.9;
 		drawImage();
 		});
+	var dragListener = function(evt) {
+		if(lastMouse!=null)
+			{
+			gTranslate.x += evt.screenX - lastMouse.x;
+			gTranslate.y += evt.screenY - lastMouse.y;
+			drawImage();
+			lastMouse={"x":evt.screenX,"y":evt.screenY};
+			}
+		
+		evt.preventDefault();
+		};
+	
+	var canvas = document.getElementById('canvas');
+	canvas.addEventListener("mousedown",function(evt) {
+		evt.preventDefault();
+		lastMouse={"x":evt.screenX,"y":evt.screenY};
+		//drawImage();
+		});
+	canvas.addEventListener("mousemove",dragListener);
+	
+	var endDragListener = function(evt) {
+		message("blue","END DRAG");
+		evt.preventDefault();
+		lastMouse = null;
+		//canvas.removeEventListener(dragListener); TODO
+		};
+	canvas.addEventListener("mouseup",endDragListener);
+	canvas.addEventListener("mouseout",endDragListener);
 	urlChanged();
 	});
 
