@@ -1,18 +1,37 @@
 <!DOCTYPE html>
 <html  lang="en">
+<head>
 <meta charset='utf-8'/>
+<meta name="author" content="Pierre Lindenbaum"/>
+<meta name="description" content="Grid for Drawing">
 <style>
+.top {
+	text-align:center;
+	 display: none;
+	}
 .b1 {
 	border: 1px solid black;
+	}
+body {
+	font-size: 12px;
+	background-color: rgb(250,250,250);
+	}
+button {
+	font-size: 16px;
+	text-decoration: none;
+  	display: inline-block;
+  	border: none;
 	}
 </style>
 <script type="text/javascript" src="grid4drawing.js"></script>
 </head>
 <body>
-<label for="url">URL:</label><input id="url" name="url" value="file:///home/lindenb/Desktop/TODRAW/3kympsgvp8621.jpg"/> <input type="range" min="1" max="50" value="25" class="slider" id="grid"/> <button id="rotate">&#x21ba;</button>
-<button id="zoomin">+</button>
-<button id="zoomout">-</button>
-<span id="message"></span><br/>
+<div class="top" id="top">
+<label for="url">URL:</label><input id="url" size="30" placeholder="Image URL" name="url" value="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/320px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"/> <label for="grid">Grid:</label><input type="range" min="1" max="50" value="25" class="slider" id="grid"/> 
+<button id="rotate" title="rotate">&#x21ba;</button>
+<button id="zoomin" title="Zoom in">&#x2295;</button>
+<button id="zoomout" title="Zoom out">&#x2296;</button>
+<span id="message"></span></div>
 <canvas id="canvas" class="b1" width="1" height="1"/>
 </body>
 </html>

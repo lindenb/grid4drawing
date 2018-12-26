@@ -1,3 +1,5 @@
+/** Author : Pierre Lindenbaum */
+
 var theImage = null;
 var doRotate=false;
 var doScale=1.0;
@@ -67,7 +69,7 @@ function urlChanged() {
  	theImage = new Image();
 	theImage.src = url.value;
 	theImage.onload = function () {
-	 	message("green","Image Loaded");
+	 	message("black","");
 	 	drawImage();
 	 	};
 	theImage.onerror = function () { 
@@ -83,7 +85,7 @@ window.addEventListener('load', function() {
 		});
 	E1 = document.getElementById("grid");
 	E1.addEventListener("change",function() {
-		message("blue","grid size:"+document.getElementById("grid").value);
+		document.getElementById("grid").setAttribute("title","grid size:"+document.getElementById("grid").value);
 		drawImage();
 		});
 	E1 = document.getElementById("rotate");
@@ -120,13 +122,17 @@ window.addEventListener('load', function() {
 	canvas.addEventListener("mousemove",dragListener);
 	
 	var endDragListener = function(evt) {
-		message("blue","END DRAG");
 		evt.preventDefault();
 		lastMouse = null;
 		//canvas.removeEventListener(dragListener); TODO
 		};
 	canvas.addEventListener("mouseup",endDragListener);
 	canvas.addEventListener("mouseout",endDragListener);
+	
+	document.addEventListener("mousemove",function(evt) {
+		document.getElementById('top').style.display=(evt.y <50?"block":"none");	
+		});
+	
 	urlChanged();
 	});
 
