@@ -1,5 +1,6 @@
 var theImage = null;
 var doRotate=false;
+var doScale=1.0;
 
 function message(color,str) {
  	var E1 = document.getElementById("message");
@@ -11,8 +12,8 @@ function message(color,str) {
 function drawImage() {
 	
 	var canvas = document.getElementById('canvas');
-	canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+	canvas.width = window.innerWidth * doScale;
+    canvas.height = window.innerHeight * doScale;
     
     var ctx = canvas.getContext('2d');
 	if(theImage!= null)
@@ -22,13 +23,13 @@ function drawImage() {
 		if(doRotate)
 			{
 			ctx.rotate(Math.PI / 2.0);
-		 	var factor=Math.min(canvas.width/theImage.height,canvas.height/theImage.width);
+		 	var factor= doScale * Math.min(canvas.width/theImage.height,canvas.height/theImage.width);
 		 	ctx.scale(factor,factor);
 			ctx.drawImage(theImage,0, -theImage.height);
 			}
 		else
 			{
-		 	var factor=Math.min(canvas.width/theImage.width,canvas.height/theImage.height);
+		 	var factor=doScale * Math.min(canvas.width/theImage.width,canvas.height/theImage.height);
 		 	ctx.scale(factor,factor);
 			ctx.drawImage(theImage,0, 0);
 			}
@@ -86,6 +87,14 @@ window.addEventListener('load', function() {
 	E1 = document.getElementById("rotate");
 	E1.addEventListener("click",function() {
 		doRotate = !doRotate;
+		drawImage();
+		});
+   document.getElementById("zoomin").addEventListener("click",function() {
+		doScale = doScale*1.1;
+		drawImage();
+		});
+   document.getElementById("zoomout").addEventListener("click",function() {
+		doScale = doScale*0.9;
 		drawImage();
 		});
 	urlChanged();
