@@ -46,7 +46,7 @@ function drawImage() {
 	var gridstep3 = gridstep*3;
 	for(var y=0;y<=canvas.height;y+=gridstep)
 		{
-		ctx.lineWidth=y%gridstep3==0?0.5:0.25;
+		ctx.lineWidth=y%gridstep3==0?1.0:0.25;
 		ctx.beginPath();
 		ctx.moveTo(0, y);
 		ctx.lineTo(canvas.width,y);
