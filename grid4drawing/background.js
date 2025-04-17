@@ -16,8 +16,8 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     console.log(imageUrl);
     chrome.windows.create({
       url: `grid4drawing.html?img=${encodeURIComponent(imageUrl)}`,
-      type: "popup",
-      width: 800,
+      type: "normal",
+      width: 1600,
       height: 800
     });
   }
