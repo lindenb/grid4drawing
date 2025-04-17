@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "Image Grid Viewer",
+  "version": "1.0",
+  "description": "Adds a grid overlay to images in a new window for drawing purposes.",
+  "permissions": ["contextMenus"],
+  "background": {
+    "scripts": ["background.js"]
+  }
+}

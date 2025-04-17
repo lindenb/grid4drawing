@@ -37,7 +37,7 @@ function drawImage() {
 		 	ctx.scale(factor,factor);
 			ctx.drawImage(theImage,0, 0);
 			}
-		ctx.restore();	
+		ctx.restore();
 		}
 	ctx.globalCompositeOperation="xor";//default is 'source-over'
 	ctx.strokeStyle="black";
@@ -50,7 +50,7 @@ function drawImage() {
 		ctx.beginPath();
 		ctx.moveTo(0, y);
 		ctx.lineTo(canvas.width,y);
-		ctx.stroke(); 
+		ctx.stroke();
 		}
 	for(var x=0;x<=canvas.width;x+=gridstep)
 		{
@@ -58,16 +58,21 @@ function drawImage() {
 		ctx.beginPath();
 		ctx.moveTo(x,0);
 		ctx.lineTo(x,canvas.height);
-		ctx.stroke(); 
+		ctx.stroke();
 		}
+	}
+
+function getImageUrl() {
+   	 const params = new URLSearchParams(window.location.search);
+	const imageUrl = params.get('img');
+	return imageUrl;
 	}
 
 function urlChanged() {
 	theImage = null;
-	var E1 = document.getElementById("url");
-	if(E1.value.trim().length == 0) return;
  	theImage = new Image();
-	theImage.src = url.value;
+	theImage.src = getImageUrl();
+	console.log(theImage.src);
 	theImage.onload = function () {
 	 	message("black","");
 	 	drawImage();
@@ -79,13 +84,9 @@ function urlChanged() {
 	}
 
 window.addEventListener('load', function() {
- 	var E1 = document.getElementById("url");
-	 E1.addEventListener("change",function() {
-		urlChanged();
-		});
-	E1 = document.getElementById("grid");
+	var E1 = document.getElementById("grid");
 	E1.addEventListener("change",function() {
-		document.getElementById("grid").setAttribute("title","grid size:"+document.getElementById("grid").value);
+		document.getElementById("grid").setAttribute("title","grid size:"+getImageUrl() );
 		drawImage();
 		});
 	E1 = document.getElementById("rotate");
@@ -112,7 +113,7 @@ window.addEventListener('load', function() {
 		
 		evt.preventDefault();
 		};
-	
+
 	var canvas = document.getElementById('canvas');
 	canvas.addEventListener("mousedown",function(evt) {
 		evt.preventDefault();
@@ -120,7 +121,7 @@ window.addEventListener('load', function() {
 		//drawImage();
 		});
 	canvas.addEventListener("mousemove",dragListener);
-	
+
 	var endDragListener = function(evt) {
 		evt.preventDefault();
 		lastMouse = null;
@@ -128,11 +129,10 @@ window.addEventListener('load', function() {
 		};
 	canvas.addEventListener("mouseup",endDragListener);
 	canvas.addEventListener("mouseout",endDragListener);
-	
+
 	document.addEventListener("mousemove",function(evt) {
-		document.getElementById('top').style.display=(evt.y <50?"block":"none");	
+		document.getElementById('top').style.display=(evt.y <50?"block":"none");
 		});
-	
+
 	urlChanged();
 	});
-
